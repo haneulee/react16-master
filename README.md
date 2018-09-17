@@ -1,6 +1,4 @@
-React 16
-
-==========
+# React 16
 
 - Fragment 태그
 - return types string
