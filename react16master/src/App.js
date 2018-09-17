@@ -1,6 +1,37 @@
 import React, { Component, Fragment } from "react";
 import { createPortal } from "react-dom";
 
+const MAX_PIZZAS = 20;
+
+const eatPizza = (state, props) => {
+  const { pizzas } = state;
+  if (pizzas < MAX_PIZZAS) {
+    return {
+      pizzas: pizzas + 1
+    };
+  } else {
+    return null;
+  }
+};
+
+class Controlled extends Component {
+  state = {
+    pizzas: 0
+  };
+  _handleClick = () => {
+    this.setState(eatPizza);
+  };
+
+  render() {
+    const { pizzas } = this.state;
+    return (
+      <button onClick={this._handleClick}>{`i have eaten ${pizzas} ${
+        pizzas === 1 ? "pizza" : "pizzas"
+      }`}</button>
+    );
+  }
+}
+
 const BoundaryHOC = ProtectedComponent =>
   class Boundary extends Component {
     state = {
@@ -60,15 +91,16 @@ class App extends Component {
   render() {
     return (
       // <> 컴포넌트는 대문자여야함
-      <Fragment>
-        <Portals />
-        <ReturnTypes />
-        <PErrorMakers />
-        <PPortals />
-      </Fragment>
+      // <Fragment>
+      //   <Portals />
+      //   <ReturnTypes />
+      //   <PErrorMakers />
+      //   <PPortals />
+      // </Fragment>
       // </>
+      <Controlled />
     );
   }
 }
 
-export default BoundaryHOC(App);
+export default App;
